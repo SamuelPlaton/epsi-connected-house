@@ -1,0 +1,1 @@
+export { routes as getHouseRouter } from './get.js';
