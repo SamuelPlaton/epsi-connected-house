@@ -1,0 +1,27 @@
+.DS_Store
+app/node_modules
+app/dist
+app/docs
+api/node_modules
+api/dist
+
+# package-lock
+app/package-lock.json
+api/package-lock.json
+
+# local env files
+app/.env
+app/.env
+
+# Editor directories and files
+.idea
+api/.idea
+app/.idea
+.vscode
+app/.vscode
+api/.vscode
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
