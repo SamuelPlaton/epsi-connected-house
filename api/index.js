@@ -5,6 +5,10 @@ import swaggerJSDoc from 'swagger-jsdoc';
 import dotenv from 'dotenv';
 import cors from 'cors';
 
+import { getDetectorRouter, putDetectorRouter } from './routes/detector/index.js';
+import { getHouseRouter } from './routes/house/index.js';
+import { getRoomRouter } from './routes/room/index.js';
+
 // Enable .env config variables
 dotenv.config();
 // Setup our sql instance
@@ -17,7 +21,7 @@ const options = {
     openapi: '3.0.0',
     info: {
       title: 'Api Documentation',
-      description: 'This is our Microservices app api doc',
+      description: 'This is our connected house app api doc',
       version: '1.0.0',
     },
   },
@@ -33,6 +37,16 @@ app.use(express.json());
 app.use(cors());
 // Allow user to send data in JSON Format
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+
+// House routes
+app.use('/', getHouseRouter);
+
+// Room routes
+app.use('/', getRoomRouter);
+
+// Detector routes
+app.use('/', getDetectorRouter);
+app.use('/', putDetectorRouter);
 
 // Make our app listen to port 3000
 app.listen(3000);
