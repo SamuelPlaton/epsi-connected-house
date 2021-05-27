@@ -1,6 +1,6 @@
 import express from 'express';
 import {sqlInstance} from "../../index.js";
-import {DetectorType, getDetectorPutQuery} from "../helpers/helpers.js";
+import {DetectorType, getDetectorPostQuery, getDetectorPutQuery, getDetectorTableQuery} from "../helpers/helpers.js";
 
 export const routes = express.Router();
 
@@ -53,10 +53,12 @@ routes.put('/detectors', async (request, response) => {
         response.send('Wrong state').end();
         return;
     }
-
+    // update state
     sqlInstance.request(getDetectorPutQuery(data.type),
-        [data.state, data.id]).then(() => {
-        response.status(201);
-        response.send(data.state).end();
+        [data.state, data.id]).then(async () => {
+            // then post historic
+            await sqlInstance.request(getDetectorPostQuery(data.type), [data.id, null, data.state]);
+            response.status(201);
+            response.send(data.state).end();
     });
 });
