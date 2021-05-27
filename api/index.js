@@ -5,7 +5,7 @@ import swaggerJSDoc from 'swagger-jsdoc';
 import dotenv from 'dotenv';
 import cors from 'cors';
 
-import { getDetectorRouter, putDetectorRouter } from './routes/detector/index.js';
+import { getDetectorRouter, postDetectorRouter, putDetectorRouter } from './routes/detector/index.js';
 import { getHouseRouter } from './routes/house/index.js';
 import { getRoomRouter } from './routes/room/index.js';
 
@@ -46,6 +46,7 @@ app.use('/', getRoomRouter);
 
 // Detector routes
 app.use('/', getDetectorRouter);
+app.use('/', postDetectorRouter);
 app.use('/', putDetectorRouter);
 
 // Make our app listen to port 3000

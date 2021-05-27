@@ -40,19 +40,36 @@ export function getDetectorPutQuery(type) {
     }
 }
 
+export function getDetectorPostQuery(type) {
+    switch (type) {
+        case DetectorType.LUMINOSITY :
+            return 'INSERT INTO LUMINOSITY_HISTORIC(LUMINOSITY_ID, VALUE, STATE) VALUES (?, ?, ?)';
+            break;
+        case DetectorType.MOVEMENT :
+            return 'INSERT INTO MOVEMENT_HISTORIC(MOVEMENT_ID, VALUE, STATE) VALUES (?, ?, ?)';
+            break;
+        case DetectorType.SOUND :
+            return 'INSERT INTO SOUND_HISTORIC(SOUND_ID, VALUE, STATE) VALUES (?, ?, ?)';
+            break;
+        case DetectorType.THERMO :
+            return 'INSERT INTO THERMO_HISTORIC(THERMO_ID, VALUE, STATE) VALUES (?, ?, ?)';
+            break;
+    }
+}
+
 export function getDetectorHistoricQuery (type) {
     switch (type) {
         case DetectorType.LUMINOSITY :
-            return 'SELECT * FROM LUMINOSITY_HISTORIC WHERE ID = ?';
+            return 'SELECT * FROM LUMINOSITY_HISTORIC WHERE LUMINOSITY_ID = ?';
             break;
         case DetectorType.MOVEMENT :
-            return 'SELECT * FROM MOVEMENT_HISTORIC WHERE ID = ?';
+            return 'SELECT * FROM MOVEMENT_HISTORIC WHERE MOVEMENT_ID = ?';
             break;
         case DetectorType.SOUND :
-            return 'SELECT * FROM SOUND_HISTORIC WHERE ID = ?';
+            return 'SELECT * FROM SOUND_HISTORIC WHERE SOUND_ID = ?';
             break;
         case DetectorType.THERMO :
-            return 'SELECT * FROM THERMO_HISTORIC WHERE ID = ?';
+            return 'SELECT * FROM THERMO_HISTORIC WHERE THERMO_ID = ?';
             break;
     }
 }

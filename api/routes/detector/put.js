@@ -55,9 +55,7 @@ routes.put('/detectors', async (request, response) => {
     }
 
     sqlInstance.request(getDetectorPutQuery(data.type),
-        [data.state,
-            data.id,
-            data.userCouponId]).then(() => {
+        [data.state, data.id]).then(() => {
         response.status(201);
         response.send(data.state).end();
     });
