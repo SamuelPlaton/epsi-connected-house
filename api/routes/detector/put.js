@@ -1,6 +1,15 @@
 import express from 'express';
+import csvWriter from 'csv-writer'
 import {sqlInstance} from "../../index.js";
-import {DetectorType, getDetectorPostQuery, getDetectorPutQuery, getDetectorTableQuery} from "../helpers/helpers.js";
+import {
+    DetectorType,
+    getDetectorHistoricQuery,
+    getDetectorPostQuery,
+    getDetectorPutQuery,
+} from "../helpers/helpers.js";
+import { spawn } from 'child_process';
+import fs from 'fs';
+import csv from 'csv-parser';
 
 export const routes = express.Router();
 
@@ -60,6 +69,58 @@ routes.put('/detectors', async (request, response) => {
         response.send('Wrong handler').end();
         return;
     }
+
+    // if handler is auto, setup our machine learning AI
+    if (data.handler && data.handler === 'auto') {
+        // Write Historic
+        const historic =  await sqlInstance.request(getDetectorHistoricQuery(data.type), [data.id]);
+        const filteredHistoric = historic.filter((h) => h.value !== null);
+        const historicWriter = csvWriter.createObjectCsvWriter(({
+            path: '../machine-learning/historic.csv',
+            header: [
+                'Values', 'Hours', 'Months'
+            ]
+        }));
+        const dataToWrite = [{Values: 'Values', Hours: 'Hours', Months: 'Months'}].concat(filteredHistoric.map((el) => ({
+            Values: el.value,
+            Hours: new Date(el.date).getHours(),
+            Months: new Date(el.date).getMonth()
+        })));
+        await historicWriter.writeRecords(dataToWrite);
+        // Write Request
+        const requestWriter = csvWriter.createObjectCsvWriter(({
+            path: '../machine-learning/request.csv',
+            header: [
+                'Hours', 'Months'
+            ]
+        }));
+        const today = new Date();
+        const requestToWrite = [{Hours: 'Hours', Months: 'Months'}, {Hours: today.getHours(), Months: today.getMonth()}];
+        await requestWriter.writeRecords(requestToWrite);
+        // Call our Machine Learning Program
+        const python = spawn('python', ['../machine-learning/multiple_linear.py']);
+        // collect data from script
+        await python.stdout.on('data', function (data) {
+            console.log(data);
+            console.log('Pipe data from python script ...');
+        });
+        // in close event we are sure that stream from child process is closed
+        await python.on('close', (code) => {
+            console.log(`child process close all stdio with code ${code}`);
+        });
+        // Then we read response
+        await fs.createReadStream('../machine-learning/response.csv')
+            .pipe(csv())
+            .on('data', async (row) => {
+                if (Object.keys(row).length > 0) {
+                    await sqlInstance.request(getDetectorPostQuery(data.type), [data.id, parseInt(Object.keys(row)[0]), data.state])
+                }
+            })
+            .on('end', () => {
+                console.log('CSV file successfully processed');
+            })
+    }
+
     // update state
     sqlInstance.request(getDetectorPutQuery(data.type),
         [data.state, data.handler, data.id]).then(async () => {
