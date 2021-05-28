@@ -1,23 +1,30 @@
 <template>
-  <div class="home flex flex-col items-center">
-    <p class="my-2 text-lg font-semibold">
-      Welcome to the front app
-    </p>
-    <pre>{{this.houses}}</pre>
-  </div>
+  <v-container>
+    <div class="text-h3 mb-5">My houses :</div>
+    <v-card
+      class="ma-5 pa-2 d-flex justify-center"
+      v-for="house in houses"
+      :key="house.id"
+      @click="$router.push({ name: 'House', params: { idHouse: house.id } })"
+    >
+      <v-card-title>{{ house.name }}</v-card-title>
+    </v-card>
+  </v-container>
 </template>
 
 <script>
-import {Api} from '@/api';
+import { Api } from "@/api";
 
 export default {
   name: "Home",
   data() {
-    houses: []
+    return {
+      houses: [],
+    };
   },
   async beforeCreate() {
     const houses = await Api.HousesApi.list();
     this.houses = houses;
-  }
+  },
 };
 </script>

@@ -6,8 +6,8 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "storybook": "start-storybook -p 9009 -s public",
-    "build-storybook": "build-storybook -s public"
+    "build-storybook": "build-storybook -s public",
+    "storybook": "start-storybook -p 9009 -s public"
   },
   "dependencies": {
     "@storybook/vue": "^6.1.20",
@@ -18,7 +18,8 @@
     "tailwind": "^4.0.0",
     "vue": "^2.6.11",
     "vue-router": "^3.2.0",
-    "vue-tailwind": "^2.1.1"
+    "vue-tailwind": "^2.1.1",
+    "vuetify": "^2.4.0"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",
@@ -27,8 +28,12 @@
     "@vue/cli-plugin-router": "~4.5.0",
     "@vue/cli-service": "~4.5.0",
     "prettier": "^1.19.1",
+    "sass": "^1.32.0",
+    "sass-loader": "^10.0.0",
     "tailwindcss": "^2.0.2",
-    "vue-template-compiler": "^2.6.11"
+    "vue-cli-plugin-vuetify": "~2.4.0",
+    "vue-template-compiler": "^2.6.11",
+    "vuetify-loader": "^1.7.0"
   },
   "gitHooks": {
     "pre-commit": "lint-staged"
