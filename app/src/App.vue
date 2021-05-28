@@ -1,35 +1,34 @@
 <template>
-  <div id="app">
-    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
-    <router-view />
-  </div>
+  <v-app>
+    <v-app-bar app color="primary" dark>
+      <v-btn icon v-show="showPrev" @click="$router.go(-1)">
+        <v-icon>mdi-arrow-left</v-icon>
+      </v-btn>
+      <div class="d-flex align-center">
+        My connected house
+      </div>
+    </v-app-bar>
+
+    <v-main>
+      <router-view />
+    </v-main>
+  </v-app>
 </template>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
+<script>
+export default {
+  name: "App",
 
-#nav {
-  color: white;
-  padding: 30px;
-  margin-bottom: 1rem;
-  background: linear-gradient(
-    90deg,
-    rgba(85, 106, 243, 1) 0%,
-    rgba(6, 149, 145, 1) 100%
-  );
-}
-
-#nav a {
-  font-weight: bold;
-}
-
-#nav a.router-link-exact-active {
-  color: #f57761;
-}
-</style>
+  data: () => ({
+    //
+  }),
+  computed: {
+    showPrev() {
+      if (this.$route.name === "Home") {
+        return false;
+      }
+      return true;
+    },
+  },
+};
+</script>
