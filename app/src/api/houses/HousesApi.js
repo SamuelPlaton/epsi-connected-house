@@ -5,8 +5,8 @@ const HousesApi = {
     return response.data;
 }).catch(err => err),
 
-    list: () => client.get('/houses').then(response => {
-    return response.data;
+    list: () => client.get('/houses').then((response) => {
+        return response.data;
 }).catch(err => err),
     
 }

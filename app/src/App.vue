@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
     <router-view />
   </div>
 </template>
