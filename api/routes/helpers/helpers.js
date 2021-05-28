@@ -26,16 +26,16 @@ export function getDetectorTableQuery (type) {
 export function getDetectorPutQuery(type) {
     switch (type) {
         case DetectorType.LUMINOSITY :
-            return 'UPDATE LUMINOSITY_DETECTOR SET STATE = ? WHERE ID = ?';
+            return 'UPDATE LUMINOSITY_DETECTOR SET STATE = ?, HANDLER = ? WHERE ID = ?';
             break;
         case DetectorType.MOVEMENT :
-            return 'UPDATE MOVEMENT_DETECTOR SET STATE = ? WHERE ID = ?';
+            return 'UPDATE MOVEMENT_DETECTOR SET STATE = ?, HANDLER = ? WHERE ID = ?';
             break;
         case DetectorType.SOUND :
-            return 'UPDATE SOUND_DETECTOR SET STATE = ? WHERE ID = ?';
+            return 'UPDATE SOUND_DETECTOR SET STATE = ?, HANDLER = ? WHERE ID = ?';
             break;
         case DetectorType.THERMO :
-            return 'UPDATE THERMO_DETECTOR SET STATE = ? WHERE ID = ?';
+            return 'UPDATE THERMO_DETECTOR SET STATE = ?, HANDLER = ? WHERE ID = ?';
             break;
     }
 }
