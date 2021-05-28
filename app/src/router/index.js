@@ -1,6 +1,6 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import { Home, House, Detectors } from "../views";
+import { Home, House, Detectors, DetectorDetails } from "../views";
 
 Vue.use(VueRouter);
 
@@ -21,6 +21,12 @@ const routes = [
     name: "Detectors",
     props: true,
     component: Detectors,
+  },
+  {
+    path: "/detector/:idDetector/:type",
+    name: "DetectorDetails",
+    props: true,
+    component: DetectorDetails,
   },
 ];
 
