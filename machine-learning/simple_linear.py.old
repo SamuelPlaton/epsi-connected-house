@@ -27,8 +27,6 @@ def print_data_informations(dataset):
 # Prepare and format our datas
 def prepare_data(dataset):
     X = dataset.iloc[:, :-1].values
-    print('X')
-    print(X)
     y = dataset.iloc[:, 1].values
     return train_test_split(X, y, test_size=0.2, random_state=0)
 
