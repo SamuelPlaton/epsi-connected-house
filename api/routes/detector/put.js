@@ -27,10 +27,13 @@ export const routes = express.Router();
  *              type: string
  *            state:
  *              type: string
+ *            handler:
+ *              type: string
  *            example:
  *              id: 1
  *              type attribute: thermo
- *              state: on
+ *              state: off or on
+ *              handler: manual or auto
  *     responses:
  *      '201':
  *        description: Updated
@@ -40,7 +43,7 @@ export const routes = express.Router();
 routes.put('/detectors', async (request, response) => {
     const data = request.body.data;
     // Parameters check
-    if( !data || !data.id || !data.type || !data.state){
+    if( !data || !data.id || !data.type || !data.state || !data.handler){
         response.status(400);
         response.send('Missing parameters').end();
         return;
@@ -52,13 +55,17 @@ routes.put('/detectors', async (request, response) => {
         response.status(400);
         response.send('Wrong state').end();
         return;
+    } else if (!['auto', 'manual'].includes(data.handler)) {
+        response.status(400);
+        response.send('Wrong handler').end();
+        return;
     }
     // update state
     sqlInstance.request(getDetectorPutQuery(data.type),
-        [data.state, data.id]).then(async () => {
+        [data.state, data.handler, data.id]).then(async () => {
             // then post historic
             await sqlInstance.request(getDetectorPostQuery(data.type), [data.id, null, data.state]);
             response.status(201);
-            response.send(data.state).end();
+            response.send([data.state, data.handler]).end();
     });
 });
