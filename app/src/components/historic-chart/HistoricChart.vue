@@ -31,7 +31,7 @@ export default {
         const date = moment(el.date);
         return date.format('L LT');
       });
-      console.log(filteredHistoricArray.map((el) => el.date));
+
       this.datas = {
         labels: historicDates,
         datasets: [{
