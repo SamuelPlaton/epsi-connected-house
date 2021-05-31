@@ -1,5 +1,5 @@
 import express from 'express';
-import csvWriter from 'csv-writer'
+import csvWriter from 'csv-writer';
 import {sqlInstance} from "../../index.js";
 import {
     DetectorType,
@@ -108,6 +108,7 @@ routes.put('/detectors', async (request, response) => {
         await python.on('close', (code) => {
             console.log(`child process close all stdio with code ${code}`);
         });
+
         // Then we read response
         await fs.createReadStream('../machine-learning/response.csv')
             .pipe(csv())
@@ -119,7 +120,7 @@ routes.put('/detectors', async (request, response) => {
             })
             .on('end', () => {
                 console.log('CSV file successfully processed');
-            })
+            });
     }
 
     // update state

@@ -43,6 +43,11 @@ export default {
         }]
       }
     },
+  },
+  watch: {
+    historicArray: function() {
+      this.fillData();
+    }
   }
 }
 </script>
