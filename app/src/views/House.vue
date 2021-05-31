@@ -1,7 +1,7 @@
 <template>
   <v-container>
-    <div class="text-h3 my-5">All rooms :</div>
-    <div class="d-flex justify-center">
+    <div class="text-h4 my-5">Mes pièces :</div>
+    <div class="d-flex justify-center flex-wrap">
       <v-card
         class="ma-5 pa-2"
         width="300"

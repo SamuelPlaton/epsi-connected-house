@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <div class="text-h3 my-5">Detector details :</div>
+    <div class="text-h5 my-5">Détails :</div>
     <div class="d-flex justify-space-around">
       <v-switch
         v-model="detector.state"
@@ -12,8 +12,13 @@
         :disabled="!detector.state"
       />
     </div>
-    <div class="text-h5 my-5">History :</div>
-    <HistoricChart v-if="historic.length !== 0" :historicArray="historic" />
+    <div class="my-5" v-if="historic.length !== 0">
+      <p class="text-h5">Historique :</p>
+      <HistoricChart :historicArray="historic" :label="getHistoricLabel()" />
+    </div>
+    <div class="my-5" v-if="historic.length === 0">
+      <p>Aucun historique disponible</p>
+    </div>
   </v-container>
 </template>
 
@@ -37,6 +42,20 @@ export default {
       moment.locale("fr");
       return moment(date).format("Do MMM YYYY");
     },
+    getHistoricLabel() {
+      const type = this.$route.params.type;
+      if (type === 'thermo') {
+        return 'Température (en °C)';
+      } else if (type === 'luminosity') {
+        return 'Luminosité (en %)'
+      } else if (type === 'sound') {
+        return 'Son détecté'
+      } else if (type === 'movement') {
+        return 'Mouvement détecté'
+      } else {
+        return '';
+      }
+    }
   },
   async beforeCreate() {
     const idDetector = this.$route.params.idDetector;

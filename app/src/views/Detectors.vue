@@ -1,8 +1,8 @@
 <template>
   <v-container>
-    <div class="text-h3 my-5">All detectors of room {{ room.room.name }} :</div>
+    <div class="text-h5 my-5">Détecteurs de la pièce {{ room.room.name }} :</div>
     <div
-      class="text-h5 px-16 py-3"
+      class="text-h6 px-16 py-3"
       v-for="(detector, name) in room.detectors"
       :key="detector.id"
     >
@@ -24,9 +24,6 @@
             <v-img contain height="36" :src="getImg(name)" />
           </v-card-title>
 
-          <v-card-text class="text-h5 d-flex justify-center"
-            >{{ getDetectorName(name) }}
-          </v-card-text>
           <v-card-actions class="text-caption d-flex justify-center">{{
             index + 1
           }}</v-card-actions>
@@ -67,7 +64,17 @@ export default {
       return images("./movement_detectors.png");
     },
     getDetectorsName(detector) {
-      return detector.replace("_", " ");
+      if (detector === 'movement_detectors') {
+        return 'Détecteurs de mouvement';
+      } else if (detector === 'sound_detectors') {
+        return 'Détecteurs de son';
+      } else if (detector === 'luminosity_detectors') {
+        return 'Détecteurs de lumière';
+      } else if (detector === 'thermo_detectors') {
+        return 'Détecteurs de température';
+      } else {
+        return detector.replace("_", " ");
+      }
     },
     getDetectorName(detector) {
       const name = detector.replace("_", " ");

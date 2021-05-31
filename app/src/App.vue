@@ -17,7 +17,7 @@
             src="../public/img/wifi-connection.png"
           ></v-img>
         </div>
-        My connected house
+        Mes maisons connectés
       </v-btn>
     </v-app-bar>
 
