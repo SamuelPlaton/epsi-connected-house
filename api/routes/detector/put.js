@@ -113,7 +113,8 @@ routes.put('/detectors', async (request, response) => {
             .pipe(csv())
             .on('data', async (row) => {
                 if (Object.keys(row).length > 0) {
-                    await sqlInstance.request(getDetectorPostQuery(data.type), [data.id, parseInt(Object.keys(row)[0]), data.state])
+                    console.log('predicted :',parseInt(Object.keys(row)[0]));
+                    await sqlInstance.request(getDetectorPostQuery(data.type), [data.id, parseInt(Object.keys(row)[0]), data.state]);
                 }
             })
             .on('end', () => {
@@ -124,8 +125,10 @@ routes.put('/detectors', async (request, response) => {
     // update state
     sqlInstance.request(getDetectorPutQuery(data.type),
         [data.state, data.handler, data.id]).then(async () => {
-            // then post historic
-            await sqlInstance.request(getDetectorPostQuery(data.type), [data.id, null, data.state]);
+            // then post historic if not already done
+            if (data.handler !== 'auto') {
+                await sqlInstance.request(getDetectorPostQuery(data.type), [data.id, null, data.state]);
+            }
             response.status(201);
             response.send([data.state, data.handler]).end();
     });
