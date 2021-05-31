@@ -5,7 +5,7 @@ const DetectorsApi = {
         return response.data;
     }).catch(err => err),
 
-    post: (id, type, value) => client.get('/detectors', { data : {
+    post: (id, type, value) => client.post('/detectors', { data : {
             id,
             type,
             value,
@@ -13,7 +13,7 @@ const DetectorsApi = {
         return response.data;
     }).catch(err => err),
 
-    put: (id, type, state, handler) => client.get('/detectors', { data : {
+    put: (id, type, state, handler) => client.put('/detectors', { data : {
             id,
             type,
             state,
