@@ -16,6 +16,11 @@ api/.env
 # error log
 api/error.log
 
+# csv files
+machine-learning/historic.csv
+machine-learning/request.csv
+machine-learning/response.csv
+
 # Editor directories and files
 .idea
 api/.idea
