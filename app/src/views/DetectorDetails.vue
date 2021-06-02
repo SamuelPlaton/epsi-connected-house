@@ -51,6 +51,8 @@
 import { Api } from "@/api";
 import moment from "moment";
 import { HistoricChart } from "@/components";
+import {io} from "socket.io-client";
+
 export default {
   name: "DetectorDetails",
   data() {
@@ -59,6 +61,12 @@ export default {
       historic: [],
       value: 0,
       type: "",
+      socket: io('ws://localhost:3000', {
+        withCredentials: true,
+        extraHeaders: {
+          "my-custom-header": "abcd"
+        }
+      }),
     };
   },
   components: {
@@ -104,9 +112,22 @@ export default {
       this.detector = { ...this.detector, state: result[0], handler: result[1]};
     },
     async setValue() {
-      const result = await Api.DetectorsApi.post(this.$route.params.idDetector, this.$route.params.type, this.value);
-      this.historic = this.historic.concat(result);
+      await Api.DetectorsApi.post(this.$route.params.idDetector, this.$route.params.type, this.value);
     }
+  },
+  mounted() {
+    this.socket.on('historic', (data) => {
+      // Listen to socket
+      const detectorId = data.thermo_id || data.sound_id ||data.movement_id || data.luminosity_id;
+      if (detectorId
+          && detectorId === parseInt(this.$route.params.idDetector)
+          && data.type
+          && data.type === this.$route.params.type
+      ) {
+        console.log('Received from socket : ', data);
+        this.historic = this.historic.concat(data);
+      }
+    })
   },
   async beforeCreate() {
     const idDetector = this.$route.params.idDetector;

@@ -34,24 +34,6 @@ export default {
     };
   },
   methods: {
-    async getLocalisation(house) {
-      if (navigator.geolocation) {
-        await navigator.geolocation.getCurrentPosition((data) => {
-          const houseCoordinates = house.coordinates.split(';')
-          const distance = this.getDistanceFromLatLonInKm
-          (data.coords.latitude, data.coords.longitude, houseCoordinates[0], houseCoordinates[1]);
-          console.log(distance);
-          return data;
-        })
-      } else {
-        return false
-      }
-    },
-    getDistance() {
-      const loc = this.getLocalisation().then();
-      console.log('loc:');
-      console.log(loc);
-    },
     getDistanceFromLatLonInKm(lat1, lon1, lat2, lon2) {
       const R = 6371; // Radius of the earth in km
       const dLat = this.deg2rad(lat2 - lat1);  // deg2rad below
@@ -82,7 +64,6 @@ export default {
           return distance.toFixed(2);
         })
           this.housesCoordinates = housesCoordinates;
-          console.log('coordinates :',housesCoordinates);
       })
     }
 

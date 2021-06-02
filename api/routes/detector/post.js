@@ -1,5 +1,5 @@
 import express from 'express';
-import {sqlInstance} from "../../index.js";
+import {ioServer, sqlInstance} from "../../index.js";
 import {
     DetectorType,
     getDetectorHistoricQuery,
@@ -85,6 +85,7 @@ routes.post('/detectors', async (request, response) => {
         [data.id, updatedValue, state]).then(async () => {
         const updatedHistorics = await sqlInstance.request(getDetectorHistoricQuery(data.type), [data.id]);
         const createdHistoric = updatedHistorics[updatedHistorics.length-1];
+        ioServer.emit('historic', {...createdHistoric, type: data.type});
         response.status(200);
         response.send(createdHistoric).end();
     });
