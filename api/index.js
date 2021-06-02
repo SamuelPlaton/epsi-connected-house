@@ -4,6 +4,8 @@ import swaggerUi from "swagger-ui-express";
 import swaggerJSDoc from "swagger-jsdoc";
 import dotenv from "dotenv";
 import cors from "cors";
+import http from 'http';
+import { Server } from 'socket.io';
 
 import {
   getDetectorRouter,
@@ -60,4 +62,22 @@ app.use("/", postDetectorRouter);
 app.use("/", putDetectorRouter);
 
 // Make our app listen to port 3000
-app.listen(3000);
+const httpServer = http.createServer(app);
+httpServer.listen(3000);
+
+// socket.io
+export const ioServer = new Server(httpServer, {
+  cors: {
+    origin: "http://localhost:8080",
+    methods: ["GET", "POST", "PUT"],
+    allowedHeaders: ["my-custom-header"],
+    credentials: true
+  }
+});
+
+ioServer.on('connection', (socket) => {
+  console.log('User connected to socket');
+  socket.on('disconnect', () => {
+    console.log('User disconnected from socket');
+  });
+});
