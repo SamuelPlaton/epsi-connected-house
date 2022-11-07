@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <div class="text-h5 my-5">Détecteurs du secteur :</div>
+    <div class="text-h5 my-5">Détecteurs {{ room.room.name }} :</div>
     <div
       class="text-h6 px-16 py-3"
       v-for="(detector, name) in room.detectors"
