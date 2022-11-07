@@ -84,9 +84,9 @@ export default {
       } else if (type === 'luminosity') {
         return 'Luminosité (en %)'
       } else if (type === 'sound') {
-        return 'Son détecté'
+        return 'Réseau détecté'
       } else if (type === 'movement') {
-        return 'Mouvement détecté'
+        return 'Gaz détecté'
       } else {
         return '';
       }
