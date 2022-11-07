@@ -14,10 +14,10 @@
           <v-img
             contain
             class="img"
-            src="../public/img/wifi-connection.png"
+            src="../public/img/connexion-internet.png"
           ></v-img>
         </div>
-        Mes maisons connectés
+        Mes lieux connectés
       </v-btn>
     </v-app-bar>
 

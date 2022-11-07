@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <div class="text-h5 my-5">Détecteurs de la pièce {{ room.room.name }} :</div>
+    <div class="text-h5 my-5">Détecteurs du secteur :</div>
     <div
       class="text-h6 px-16 py-3"
       v-for="(detector, name) in room.detectors"
@@ -61,13 +61,13 @@ export default {
       ) {
         return images("./" + detectorName + ".png");
       }
-      return images("./movement_detectors.png");
+      return images("./luminosity_detectors.png");
     },
     getDetectorsName(detector) {
       if (detector === 'movement_detectors') {
-        return 'Détecteurs de mouvement';
+        return 'Détecteurs gaz';
       } else if (detector === 'sound_detectors') {
-        return 'Détecteurs de son';
+        return 'Détecteurs réseau';
       } else if (detector === 'luminosity_detectors') {
         return 'Détecteurs de lumière';
       } else if (detector === 'thermo_detectors') {

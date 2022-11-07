@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <div class="text-h4 my-5">Mes pièces :</div>
+    <div class="text-h4 my-5">Mes secteurs :</div>
     <div class="d-flex justify-center flex-wrap">
       <v-card
         class="ma-5 pa-2"
@@ -12,11 +12,9 @@
         "
       >
         <v-card-title
-          ><v-img contain height="36" :src="getImg(room.name)"
+          ><v-img contain height="36" src="../../public/img/sector.png"
         /></v-card-title>
-        <v-card-text class="text-h5 d-flex justify-center">{{
-          room.name
-        }}</v-card-text>
+        <v-card-text class="text-h5 d-flex justify-center">{{room.name}}</v-card-text>
       </v-card>
     </div>
   </v-container>
@@ -30,15 +28,6 @@ export default {
     return {
       house: {},
     };
-  },
-  methods: {
-    getImg(roomName) {
-      var images = require.context("../../public/img/", false, /\.png$/);
-      if (["Salon", "Cuisine", "Salle de bain", "Chambre"].includes(roomName)) {
-        return images("./" + roomName + ".png");
-      }
-      return images("./Chambre.png");
-    },
   },
   async beforeCreate() {
     const idHouse = this.$route.params.idHouse;

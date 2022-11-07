@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <div class="text-h4 my-5">Mes maisons :</div>
+    <div class="text-h4 my-5">Mes lieux :</div>
     <div class="d-flex justify-center flex-wrap">
       <v-card
         class="ma-5 pa-2"
@@ -10,7 +10,7 @@
         @click="$router.push({ name: 'House', params: { idHouse: house.id } })"
       >
         <v-card-title>
-          <v-img contain height="36" src="../../public/img/house.png" />
+          <v-img contain height="36" src="../../public/img/building.png" />
         </v-card-title>
         <v-card-text class="text-h5 d-flex flex-column d-col justify-center align-center">
           <p>{{ house.name }}</p>
