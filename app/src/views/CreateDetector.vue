@@ -4,9 +4,9 @@
       <v-text-field label="Libellé" v-model="label" />
       <v-select label="Type" v-model="type" :items="[
         {text:'Luminosité', value: 'luminosity'},
-        {text:'Mouvement', value: 'movement'},
+        {text:'Gas', value: 'movement'},
         {text:'Température', value: 'thermo'},
-        {text:'Son', value: 'sound'}
+        {text:'Réseau', value: 'sound'}
         ]">
       </v-select>
       <v-btn
