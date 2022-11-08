@@ -3,6 +3,7 @@ import {ioServer, sqlInstance} from "../../index.js";
 import {
     DetectorType,
     getDetectorHistoricQuery,
+    getDetectorInsertQuery,
     getDetectorPostQuery,
     getDetectorPutQuery,
     getDetectorTableQuery
@@ -89,4 +90,25 @@ routes.post('/detectors', async (request, response) => {
         response.status(200);
         response.send(createdHistoric).end();
     });
+});
+
+routes.post('/detectors/create', async (request, response) => {
+    const data = request.body.data;
+    // Parameters check
+    if( !data || !data.type || !data.room_id || !data.label){
+        response.status(400);
+        response.send('Missing parameters').end();
+        return;
+    } else if (!Object.values(DetectorType).includes(data.type)) {
+        response.status(400);
+        response.send('Detector type incorrect').end();
+        return;
+    }
+    const creationResponse = await sqlInstance.request(getDetectorInsertQuery(data.type),
+        [data.label, data.room_id, "on"]);
+
+    const newDetector = await sqlInstance.request(getDetectorTableQuery(data.type), [creationResponse.insertId]);
+
+    response.status(200);
+        response.send(newDetector).end();
 });

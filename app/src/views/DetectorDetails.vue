@@ -1,5 +1,6 @@
 <template>
   <v-container>
+    <div class="text-h4 my-4">Capteur {{ detector.label }}</div>
     <div class="text-h5 my-5">Détails :</div>
     <div class="d-flex justify-space-around">
       <div>
