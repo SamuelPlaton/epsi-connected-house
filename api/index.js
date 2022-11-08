@@ -13,7 +13,7 @@ import {
   putDetectorRouter,
 } from "./routes/detector/index.js";
 import { getHouseRouter } from "./routes/house/index.js";
-import { getRoomRouter } from "./routes/room/index.js";
+import { getRoomRouter, getRoomConsumptionRouter } from "./routes/room/index.js";
 
 // Enable .env config variables
 dotenv.config();
@@ -55,6 +55,7 @@ app.use("/", getHouseRouter);
 
 // Room routes
 app.use("/", getRoomRouter);
+app.use("/", getRoomConsumptionRouter);
 
 // Detector routes
 app.use("/", getDetectorRouter);
