@@ -21,6 +21,8 @@ machine-learning/historic.csv
 machine-learning/request.csv
 machine-learning/response.csv
 
+emulator/node_modules
+
 # Editor directories and files
 .idea
 api/.idea
