@@ -1,14 +1,26 @@
 <template>
   <v-container>
-    <div class="flex row align-center justify-lg-space-between">
-      <div class="text-h5 my-5">Détecteurs {{ room.room.name }} :</div>
-      <v-btn
-        color="blue"
-        dark
-        @click="dialog = true"
-      >
-        CONSOMMATION DU MOIS
-      </v-btn>
+    <div class="d-flex align-center justify-space-between flex-row mx-5">
+      <div class="text-h4 my-5">Détecteurs {{ room.room.name }} :</div>
+      <div>
+        <v-btn
+            class="mr-2"
+            @click="dialog = true"
+        >
+          Consommation mensuelle
+        </v-btn>
+        <v-btn
+            color="primary"
+            @click="
+          $router.push({
+            name: 'CreateDetector',
+            params: { idRoom: room.room.id },
+          })
+        "
+        >
+          Nouveau
+        </v-btn>
+      </div>
     </div>
     <div
       class="text-h6 px-16 py-3"
@@ -16,7 +28,7 @@
       :key="detector.id"
     >
       {{ getDetectorsName(name) }} :
-      <div class="d-flex justify-center">
+      <div class="d-flex justify-center flex-wrap">
         <v-card
           class="ma-5 pa-2"
           width="300"
@@ -34,7 +46,7 @@
           </v-card-title>
 
           <v-card-actions class="text-caption d-flex justify-center">{{
-              index + 1
+              item.label
             }}
           </v-card-actions>
         </v-card>

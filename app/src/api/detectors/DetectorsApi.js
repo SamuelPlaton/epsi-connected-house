@@ -13,6 +13,14 @@ const DetectorsApi = {
         return response.data;
     }).catch(err => err),
 
+    create: (label, room_id, type) => client.post('/detectors/create', { data : {
+            label,
+            room_id,
+            type
+        }}).then(response => {
+        return response.data;
+    }).catch(err => err),
+
     put: (id, type, state, handler) => client.put('/detectors', { data : {
             id,
             type,

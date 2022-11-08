@@ -40,6 +40,23 @@ export function getDetectorPutQuery(type) {
     }
 }
 
+export function getDetectorInsertQuery(type) {
+    switch (type) {
+        case DetectorType.LUMINOSITY :
+            return 'INSERT INTO LUMINOSITY_DETECTOR(LABEL, ROOM_ID, STATE) VALUES (?, ?, ?)';
+            break;
+        case DetectorType.MOVEMENT :
+            return 'INSERT INTO MOVEMENT_DETECTOR(LABEL, ROOM_ID, STATE) VALUES (?, ?, ?)';
+            break;
+        case DetectorType.SOUND :
+            return 'INSERT INTO SOUND_DETECTOR(LABEL, ROOM_ID, STATE) VALUES (?, ?, ?)';
+            break;
+        case DetectorType.THERMO :
+            return 'INSERT INTO THERMO_DETECTOR(LABEL, ROOM_ID, STATE) VALUES (?, ?, ?)';
+            break;
+    }
+}
+
 export function getDetectorPostQuery(type) {
     switch (type) {
         case DetectorType.LUMINOSITY :
